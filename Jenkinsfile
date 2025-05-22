@@ -31,15 +31,46 @@ pipeline {
             
             steps {
                 script{
-                    withAWS(region: 'us-east-1', credentials: 'aws-creds') {
+                    withAWS(region: 'us-east-1', credentials: "aws-creds-${environment}") {
                         sh """
-                            aws eks update-kubeconfig --region $REGION --name expense-dev
+                            aws eks update-kubeconfig --region $REGION --name expense-${environment}
                             kubectl get nodes
                             cd helm
                             sed -i 's/IMAGE_VERSION/${params.version}/g' values-${environment}.yaml
                             helm upgrade --install $COMPONENT -n $PROJECT -f values-${environment}.yaml .
                         """
                     }
+                }
+            }
+        }
+        stage('Functional Tests') {
+            when{
+                expression { params.deploy_to == 'dev'}
+            }
+            
+            steps {
+                script{
+                    
+                        sh """
+                            echo "functional tests will be performed after DEV deployment. Usual;y these are automated selenium test cases written by testing team. If these test cases are failed pipeline also fails"
+                        """
+                    
+                }
+            }
+        }
+
+        stage('Functional Tests') {
+            when{
+                expression { params.deploy_to == 'dev'}
+            }
+            
+            steps {
+                script{
+                    
+                        sh """
+                            echo "functional tests will be performed after DEV deployment. Usual;y these are automated selenium test cases written by testing team. If these test cases are failed pipeline also fails"
+                        """
+                    
                 }
             }
         }
