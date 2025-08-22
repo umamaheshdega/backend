@@ -17,15 +17,14 @@ pipeline {
         choice(name: 'deploy_to', choices: ['dev', 'qa', 'prod'], description: 'Pick something')
     }
     stages {
-
-        stage('Setup Environment'){
+/*         stage('Setup Environment'){
             steps{
                 script{
                     appVersion = params.version
                     environment = params.deploy_to
                 }
             }
-        }
+        } */
         
         stage('Deploy') {
             steps {
