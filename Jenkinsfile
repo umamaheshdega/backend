@@ -42,7 +42,7 @@ pipeline {
                 }
             }
         }
-        /* stage('Deploy') {
+        stage('Deploy') {
             steps {
                 script{
                     withAWS(region: 'us-east-1', credentials: "aws-creds-${environment}") {
@@ -86,8 +86,8 @@ pipeline {
                     }
                 }
             }
-        } */
-        stage('Functional/API Tests') {
+        } 
+         /*         stage('Functional/API Tests') {
             when{
                 expression { params.deploy_to == 'dev'}
             }
@@ -117,7 +117,7 @@ pipeline {
                     
                 }
             }
-        }
+        } */
         
     }
     post { 
