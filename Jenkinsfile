@@ -17,16 +17,17 @@ pipeline {
         choice(name: 'deploy_to', choices: ['dev', 'qa', 'prod'], description: 'Pick something')
     }
     stages {
-/*         stage('Setup Environment'){
+
+        stage('Setup Environment'){
             steps{
                 script{
                     appVersion = params.version
                     environment = params.deploy_to
                 }
             }
-        } */
+        }
         
-        stage('Deploy') {
+/*         stage('Deploy') {
             steps {
                 script{
                     withAWS(region: 'us-east-1', credentials: "aws-creds-${environment}") {
@@ -40,8 +41,8 @@ pipeline {
                     }
                 }
             }
-        }
-        stage('Deploy') {
+        } */
+         stage('Deploy') {
             steps {
                 script{
                     withAWS(region: 'us-east-1', credentials: "aws-creds-${environment}") {
@@ -85,9 +86,8 @@ pipeline {
                     }
                 }
             }
-        }
-    }     
-         /*         stage('Functional/API Tests') {
+        } 
+/*         stage('Functional/API Tests') {
             when{
                 expression { params.deploy_to == 'dev'}
             }
@@ -118,8 +118,8 @@ pipeline {
                 }
             }
         } */
-      
-    
+        
+    }
     post { 
         always { 
             echo 'I will always say Hello again!'
